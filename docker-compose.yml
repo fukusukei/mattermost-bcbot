@@ -1,0 +1,15 @@
+version: "3"
+
+services:
+  app:
+    build: 
+      context: app
+      dockerfile: Dockerfile
+      args:
+          - http_proxy=${http_proxy}
+          - https_proxy=${https_proxy}
+          - no_proxy=${no_proxy}
+    restart: unless-stopped
+    tty: true
+    volumes:
+      - ./volumes/app:/home/bcbot/workspace
