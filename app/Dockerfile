@@ -10,12 +10,13 @@ ARG GROUPID=1000
 
 RUN apk update\
     && apk upgrade \
-    && apk --no-cache add tzdata \
-    && cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime \
-    && pip install requests \
+    && pip install django Celery \
     && rm -rf /var/cache/apk/* \
-    && adduser --disabled-password -u ${USERID} -g ${GROUPID} ${USERNAME} ${GROUPNAME} 
+    && adduser --disabled-password -u ${USERID} -g ${GROUPID} ${USERNAME} ${GROUPNAME}
 
 WORKDIR /home/${USERNAME}
+COPY docker-entrypoint1.sh /opt
 
 user ${USERNAME}
+
+ENTRYPOINT ["/opt/docker-entrypoint1.sh"]

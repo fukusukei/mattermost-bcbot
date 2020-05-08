@@ -10,6 +10,7 @@ services:
           - https_proxy=${https_proxy}
           - no_proxy=${no_proxy}
     restart: unless-stopped
-    tty: true
+    ports:
+      - "8085:8000"
     volumes:
-      - ./volumes/app:/home/bcbot/workspace
+      - ./volumes/app:/home/bcbot/
