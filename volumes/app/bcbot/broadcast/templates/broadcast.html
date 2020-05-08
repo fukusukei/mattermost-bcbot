@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<h3>Broadcast Messeages</h3>
+    <p>{{msg|safe}}</p>
+        <form aciton = "{%url 'broadcast' % }" method = "POST">
+            {% csrf_token %}
+            {{ create.Broadcast_messages.label }}
+            <br>
+            {{ create.Broadcast_messages }}
+            <br>
+            <label for="Start_at">Start at&nbsp;&nbsp;&nbsp;</label>
+            {{ create.Years }} {{ create.Months }} {{ create.Days }} - {{ create.Hours }} : {{ create.Minutes }}
+            <br>
+            <br>
+            <hr>
+            <tr><td><input type = "submit" value = "Add broadcast messeage"></td></tr>
+            <hr>
+        </form>
+    <hr>
+    <table>
+        <thead>
+            <tr>
+                <th>Preview</th>
+                <th>start</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for item in data %}
+            <tr>
+                <td>{{item.Broadcast_messages}}</td>
+                <td>{{item.Years}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <hr>
+{% endblock %}
