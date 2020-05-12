@@ -1,37 +1,47 @@
 {% extends 'base.html' %}
 {% block content %}
-{% load static %}
 <h3>Broadcast Messeages</h3>
     <p>{{msg|safe}}</p>
-        <form aciton = "{%url 'broadcast' % }" method = "POST">
+        <form aciton = "{%url 'broadcast' % }" method = "POST" >
             {% csrf_token %}
             {{ create.Broadcast_messages.label }}
             <br>
             {{ create.Broadcast_messages }}
             <br>
-            <label for="Start_at">Start at&nbsp;&nbsp;&nbsp;</label>
+            <label for="Start_at">Start at &nbsp;&nbsp;&nbsp;</label>
             {{ create.Years }} {{ create.Months }} {{ create.Days }} - {{ create.Hours }} : {{ create.Minutes }}
             <br>
             <br>
             <hr>
-            <tr><td><input type = "submit" value = "Add broadcast messeage"></td></tr>
+            <tr><td>
+                <input type = "hidden" name="func" value = "create">
+                <input type = "submit" value = "Add broadcast messeage">
+            </td></tr>
             <hr>
         </form>
     <hr>
-    <table>
+    <table cellpadding="4">
         <thead>
             <tr>
-                <th>Preview</th>
+                <th width="800">Preview</th>
                 <th>start</th>
+                <th>&nbsp;&nbsp;</th>
             </tr>
         </thead>
         <tbody>
-            {%for item in data %}
-            <tr>
-                <td>{{item.Broadcast_messages}}</td>
-                <td>{{item.Years}}</td>
-            </tr>
+            {% for item in data %}
+            <form aciton = "{%url 'broadcast' % }" method = "POST">
+                {% csrf_token %}
+                <tr>
+                    <td width="800">{{ item.Broadcast_messages | truncatechars_html:40}}</td>
+                    <td>{{ item.Years }}-{{ item.Months }}-{{ item.Days }}&nbsp;{{ item.Hours }}:{{ item.Minutes }}</td>
+                    <td>
+                        <input type = "hidden" name="func" value="delete">
+                        <button class="btn btn-primary btn-sm" type="submit" name="sub" value="{{ item.id }}">x</button>
+                    </td>
+                </tr>
             {% endfor %}
+            </form>
         </tbody>
     </table>
     <hr>

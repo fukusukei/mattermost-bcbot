@@ -11,13 +11,14 @@ ARG GROUPID=1000
 RUN apk update\
     && apk upgrade \
     && apk add --no-cache postgresql-dev gcc musl-dev \
-    && pip install django celery django-celery-beat django_celery_results django-redis psycopg2 \
+    && pip install celery django-celery-beat django_celery_results django-redis psycopg2 \
     && rm -rf /var/cache/apk/* \
     && adduser --disabled-password -u ${USERID} -g ${GROUPID} ${USERNAME} ${GROUPNAME}
 
-WORKDIR /home/${USERNAME}
+WORKDIR /home/${USERNAME}/${USERNAME}
+
 COPY docker-entrypoint1.sh /opt
 
 user ${USERNAME}
 
-ENTRYPOINT ["/opt/docker-entrypoint1.sh"]
+#ENTRYPOINT ["/opt/docker-entrypoint1.sh"]

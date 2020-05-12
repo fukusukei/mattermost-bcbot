@@ -1,0 +1,7 @@
+.invisibleFrame {
+  visibility:hidden;
+}
+
+.nondisplayFrame {
+  display:none;
+}

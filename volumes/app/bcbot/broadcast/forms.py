@@ -10,10 +10,10 @@ class CreateRecord(forms.ModelForm):
             'Months': forms.Select,
             'Days': forms.Select,
             'Hours': forms.Select,
-            'Minutes': forms.Select
+            'Minutes': forms.Select,
         }
         labels = {
             'Broadcast_messages': 'Message'
         }
 
-        fields = ['Broadcast_messages', 'Years', 'Months', 'Days', 'Hours', 'Minutes']
+        fields = ['Broadcast_messages', 'Years', 'Months', 'Days', 'Hours', 'Minutes', ]
