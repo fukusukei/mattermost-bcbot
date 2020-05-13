@@ -1,6 +1,10 @@
 import requests
 import json
 
+from logging import getLogger
+
+logger = getLogger(__name__)
+
 BOTACCOUNT_ID="zq96693yt7g5umy9d1sg3jfjxo"
 BASEURL="http://192.168.2.110:8082/mattermost"
 TAGET_CHANNEL="off-topic"
@@ -54,5 +58,5 @@ def broadcast (arg):
     
     return r.json()
     
-if __name__ == "__main__":
-    broadcast(get_star(getchannels()))
+#if __name__ == "__main__":
+#    broadcast(get_star(getchannels()))

@@ -44,11 +44,10 @@ services:
           - https_proxy=${https_proxy}
           - no_proxy=${no_proxy}
     restart: unless-stopped
-    tty: true
     volumes:
       - ./volumes/app:/home/bcbot/
     environment:
-      - CELERY_RUNMODE="worker"
+      - CELERY_RUNMODE=worker
     depends_on:
       - db
       - app
@@ -62,11 +61,10 @@ services:
           - https_proxy=${https_proxy}
           - no_proxy=${no_proxy}
     restart: unless-stopped
-    tty: true
     volumes:
       - ./volumes/app:/home/bcbot/
     environment:
-      - CELERY_RUNMODE="beat"
+      - CELERY_RUNMODE=beat
     depends_on:
       - db
       - app

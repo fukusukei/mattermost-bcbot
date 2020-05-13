@@ -6,10 +6,7 @@ from django.shortcuts import redirect, get_object_or_404
 from .models import Register
 from .forms import CreateRecord
 from logging import getLogger
-
-from celery.result import AsyncResult
-
-from .tasks import add
+from .tasks import Broadcast_Entrytasks
 
 logger = getLogger(__name__)
 
@@ -29,13 +26,13 @@ def about(request):
 
 
 def broadcast(request):
-
     if request.method == 'POST':
         logger.debug(request.POST["func"])
         if request.POST["func"] == "create":
             obj = Register()
             record = CreateRecord(request.POST, instance=obj)
             record.save()
+            Broadcast_Entrytasks(obj.Years, obj.Months, obj.Days, obj.Hours, obj.Minutes)
             return redirect(to='/broadcast')
         elif request.POST["func"] == "delete":
             book = get_object_or_404(Register, pk=request.POST["sub"])
@@ -48,10 +45,5 @@ def broadcast(request):
         'data': Register.objects.all()
     }
 
-    task_id = add.delay(5, 5)
-    result = AsyncResult(task_id)
-    logger.error(result)
-    logger.error(result.state)
-    logger.error(result.ready())
     return render(request, 'broadcast.html', params)
 
