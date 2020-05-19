@@ -17,8 +17,6 @@ services:
       - POSTGRES_USER=bcbotuser
       - POSTGRES_PASSWORD=bcbotuser_password
       - POSTGRES_DB=bcbot
-  celery-broker:
-    image: redis:6.0.1-alpine3.11
   app:
     build: 
       context: app
@@ -34,41 +32,5 @@ services:
       - ./volumes/app:/home/bcbot/
     depends_on:
       - db
-      - celery-broker
-  celery-worker:
-    build:
-      context: celery
-      dockerfile: Dockerfile
-      args:
-          - http_proxy=${http_proxy}
-          - https_proxy=${https_proxy}
-          - no_proxy=${no_proxy}
-    restart: unless-stopped
-    volumes:
-      - ./volumes/app:/home/bcbot/
-    environment:
-      - CELERY_RUNMODE=worker
-    depends_on:
-      - db
-      - app
-      - celery-broker
-  celery-beat:
-    build:
-      context: celery
-      dockerfile: Dockerfile
-      args:
-          - http_proxy=${http_proxy}
-          - https_proxy=${https_proxy}
-          - no_proxy=${no_proxy}
-    restart: unless-stopped
-    volumes:
-      - ./volumes/app:/home/bcbot/
-    environment:
-      - CELERY_RUNMODE=beat
-    depends_on:
-      - db
-      - app
-      - celery-broker
-
 volumes:
   postgres_data:

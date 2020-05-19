@@ -10,8 +10,8 @@ ARG GROUPID=1000
 
 RUN apk update\
     && apk upgrade \
-    && apk add --no-cache postgresql-dev gcc musl-dev python-crontab\
-    && pip install django celery django-celery-beat django_celery_results django-redis psycopg2 requests \
+    && apk add --no-cache postgresql-dev gcc musl-dev \
+    && pip install django celery django-celery-beat django_celery_results django-redis psycopg2 requests python-crontab \
     && rm -rf /var/cache/apk/* \
     && adduser --disabled-password -u ${USERID} -g ${GROUPID} ${USERNAME} ${GROUPNAME}
 

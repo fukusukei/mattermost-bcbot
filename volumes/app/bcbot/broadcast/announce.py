@@ -58,5 +58,5 @@ def broadcast (arg):
     
     return r.json()
     
-#if __name__ == "__main__":
-#    broadcast(get_star(getchannels()))
+if __name__ == "__main__":
+    broadcast(get_star(getchannels()))
